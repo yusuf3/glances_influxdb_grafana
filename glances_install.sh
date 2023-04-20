@@ -122,41 +122,41 @@ systemctl enable grafana-server
 
 # Run the rules
 # Added for glances web - optional
-iptables -I INPUT -p tcp --dport 61208 -j ACCEPT
+# iptables -I INPUT -p tcp --dport 61208 -j ACCEPT
 
-# Added for Influxdb
-iptables -I INPUT -p tcp --dport 8086 -j ACCEPT
-iptables -I INPUT -p tcp --dport 8088 -j ACCEPT
+# # Added for Influxdb
+# iptables -I INPUT -p tcp --dport 8086 -j ACCEPT
+# iptables -I INPUT -p tcp --dport 8088 -j ACCEPT
 
-# Added for Grafana
-iptables -I INPUT -p tcp --dport 3000 -j ACCEPT
+# # Added for Grafana
+# iptables -I INPUT -p tcp --dport 3000 -j ACCEPT
 
-# Add iptable rules to /etc/rc.local so it will take effect on bootup.
-# You can also modify /etc/iptables.rules.
+# # Add iptable rules to /etc/rc.local so it will take effect on bootup.
+# # You can also modify /etc/iptables.rules.
 
-# create rc.local if not exist.
-if [ -f /etc/rc.local ]; then
-    conf_bk "/etc/rc.local"
-    # remove last line "exit 0" first, will add back later.
-    sed -i '/^exit 0/d' /etc/rc.local
-else
-    echo '#!/bin/sh' > /etc/rc.local
-fi
+# # create rc.local if not exist.
+# if [ -f /etc/rc.local ]; then
+#     conf_bk "/etc/rc.local"
+#     # remove last line "exit 0" first, will add back later.
+#     sed -i '/^exit 0/d' /etc/rc.local
+# else
+#     echo '#!/bin/sh' > /etc/rc.local
+# fi
 
-cat >> /etc/rc.local <<'EOF'
+# cat >> /etc/rc.local <<'EOF'
 
-# Added for glances web - optional
-iptables -I INPUT -p tcp --dport 61208 -j ACCEPT
+# # Added for glances web - optional
+# iptables -I INPUT -p tcp --dport 61208 -j ACCEPT
 
-# Added for Influxdb
-iptables -I INPUT -p tcp --dport 8086 -j ACCEPT
-iptables -I INPUT -p tcp --dport 8088 -j ACCEPT
+# # Added for Influxdb
+# iptables -I INPUT -p tcp --dport 8086 -j ACCEPT
+# iptables -I INPUT -p tcp --dport 8088 -j ACCEPT
 
-# Added for Grafana
-iptables -I INPUT -p tcp --dport 3000 -j ACCEPT
+# # Added for Grafana
+# iptables -I INPUT -p tcp --dport 3000 -j ACCEPT
 
-exit 0
-EOF
+# exit 0
+# EOF
 
 
 cat <<EOF
